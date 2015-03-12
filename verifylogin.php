@@ -6,7 +6,7 @@ if(checkPOST($keys)){
 
     $uname=safeString($connection,$_POST['uname']);
     $password=safeString($connection,$_POST['password']);
-    
+
 }else{
     echo "insufficient credentials";
 }
