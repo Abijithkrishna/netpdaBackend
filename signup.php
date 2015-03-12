@@ -2,7 +2,7 @@
     require_once("praveenlib.php");
     $keys = array('name','password','dob','designation','phone','email','about');
     if(checkPOST($keys)){
-        $conn =connectSQL($dbDetails);
+        $conn =connectSQL($dbdetails);
         $name = safeString($conn,$_POST['name']);
         $password = safeString($conn,$_POST['password']);
         $dob = safeString($conn,$_POST['dob']);
@@ -16,14 +16,16 @@
         }
 
 
-        $login = "insert into login(uname,password) VALUES ('{$email}','{$password}');select uid from login where uname='{$email}';";
+        $login = "insert into login(uname,password) VALUES ('{$email}','{$password}');commit ; select uid from login where uname='{$email}';";
 
         if($rs = $conn->query("select uname from login where uname = '{$email}' ")){
             if($rs->num_rows() >0){
                 echo "Already Registered";
             }
             else{
+                echo "Searching";
                 if($rs1 = $conn->query($login)){
+                    echo "Insert into login success";
                     $row = $rs1->fetch_array();
                     print_r($row);
                     $uid = $row['uid'];
@@ -31,6 +33,7 @@
                                 ({$uid},'{$name}','{$dob}','{$designation}','{$about}','{$phone}','{$email}')";
 
                     if($rs2 = $conn->query($query)){
+                        echo "Insert Successful";
 
                     }
                     else{
