@@ -1,6 +1,6 @@
 <?php
 $dbURL="localhost";
-$dbName="student";
+$dbName="pda";
 $dbusername="root";
 $dbpassword="database";
 $dbdetails=array(
