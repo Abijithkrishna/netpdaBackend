@@ -7,7 +7,7 @@ if(checkPOST($keys)){
     $uname=safeString($connection,$_POST['uname']);
     $password=safeString($connection,$_POST['password']);
 
-    $query="select * from users where uname='".$uname."' AND password='".$password."' limit 1;";
+    $query="select * from login where uname='".$uname."' AND password='".$password."' limit 1;";
     $result=mysqli_query($connection,$query);
 
     if($result){
@@ -19,7 +19,7 @@ if(checkPOST($keys)){
         }
         else echo "login_fail";
     }else{
-        echo"db_error";
+        echo $connection->error;
     }
 
 }else{
