@@ -25,8 +25,6 @@
                 echo "Already Registered";
             }
             else{
-
-                echo $login;
                 if($rs1 = $conn->query($login)){
                     $query = "insert into user_details(uid,name,dob,designation,description,contact_num,email) VALUES
                                 ((SELECT uid from login where uname='{$email}'),'{$name}','{$dob}','{$designation}','{$about}','{$phone}','{$email}')";
@@ -40,7 +38,7 @@
                     }
                 }
                 else{
-                    echo $conn->error;
+
                     echo "Insert into login failed";
                 }
             }
