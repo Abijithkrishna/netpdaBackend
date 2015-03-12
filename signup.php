@@ -16,21 +16,20 @@
         }
 
 
-        $login = "insert into login(uname,password) VALUES ('{$email}','{$password}');commit ; select uid from login where uname='{$email}';";
+        $login = "insert into login(uname,password) VALUES ('{$email}','{$password}');";
 
         if($rs = $conn->query("select uname from login where uname = '{$email}' ")){
-            if($rs->num_rows() >0){
+
+            $count= $rs->num_rows;
+            if( $count > 0){
                 echo "Already Registered";
             }
             else{
-                echo "Searching";
+
+                echo $login;
                 if($rs1 = $conn->query($login)){
-                    echo "Insert into login success";
-                    $row = $rs1->fetch_array();
-                    print_r($row);
-                    $uid = $row['uid'];
                     $query = "insert into user_details(uid,name,dob,designation,description,contact_num,email) VALUES
-                                ({$uid},'{$name}','{$dob}','{$designation}','{$about}','{$phone}','{$email}')";
+                                ((SELECT uid from login where uname='{$email}'),'{$name}','{$dob}','{$designation}','{$about}','{$phone}','{$email}')";
 
                     if($rs2 = $conn->query($query)){
                         echo "Insert Successful";
@@ -41,6 +40,7 @@
                     }
                 }
                 else{
+                    echo $conn->error;
                     echo "Insert into login failed";
                 }
             }
