@@ -10,6 +10,10 @@
         $phone = safeString($conn,$_POST['phone']);
         $email = safeString($conn,$_POST['email']);
         $about = safeString($conn,$_POST['about']);
+        if(!is_numeric($phone)){
+            echo "invalid_phone_number";
+            die();
+        }
 
 
         $login = "insert into login(uname,password) VALUES ('{$email}','{$password}');select uid from login where uname='{$email}';";
